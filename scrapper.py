@@ -1,5 +1,5 @@
 import requests 
-from bs4 import BeautifulSoup 
+from bs4 import BeautifulSoup
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -20,13 +20,23 @@ def close_pop_up():
     try:
         pop_up_close_button = browser.find_element(By.CLASS_NAME, "popup-icon-close")
         pop_up_close_button.click()
+        print('pop up appeared')
     except:
         print("Popup did not appear within the specified time.")
 
-def click_country_button(country_button_class_name):
-    country_button = browser.find_element(By.ID, country_button_class_name)
-    country_button.click()
+
+def click_country_button(browser, country_button_class_name):
+    try:
+        country_button = browser.find_element(By.ID, country_button_class_name)
+        country_button.click()
+        return browser.current_url
+    except:
+        close_pop_up()
 
 
-close_pop_up()
-click_country_button('w-node-c78e2231-b714-552c-3658-765240b39563-a65bf16a')
+# enter every country and save their data to a file
+url_of_country = click_country_button(browser, 'w-node-c78e2231-b714-552c-3658-765240b39563-a65bf16a')
+
+r = requests.get(url_of_country)
+soup = BeautifulSoup(r.content, 'html.parser') 
+print(soup)
