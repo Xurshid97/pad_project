@@ -38,5 +38,25 @@ def click_country_button(browser, country_button_class_name):
 url_of_country = click_country_button(browser, 'w-node-c78e2231-b714-552c-3658-765240b39563-a65bf16a')
 
 r = requests.get(url_of_country)
-soup = BeautifulSoup(r.content, 'html.parser') 
-print(soup)
+soup = BeautifulSoup(r.content, 'html.parser')
+
+list_of_failed_startups = []
+
+items = soup.find_all(class_="listicle-startup-collection-item")
+
+for item in items:
+    h3_tag = item.find('h3', class_='listicle-h3')
+    info = {}
+    information_of_start_up = ['founder', 'country', 'industry', 'started_in', 'closed_in', '#_of_employees', 'funding_amount', 'cause']
+    informations = item.find_all(class_='failed-startup-list-information')
+    for i in range(len(informations)):
+        if i < len(information_of_start_up):
+            info[information_of_start_up[i]] = informations[i].get_text(strip=True)
+    each_start_up = {}
+    if h3_tag:
+        startup_name = h3_tag.get_text(strip=True)
+        each_start_up[startup_name] = info
+    list_of_failed_startups.append(each_start_up)
+print(list_of_failed_startups)
+
+# some mistakes on extracting data, some startups do not have n of employees, also, some has no funding solve it by its name
