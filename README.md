@@ -1,23 +1,19 @@
-python -m venv myenv
-myenv\Scripts\activate
+*** create virtual environment for project ***
+python -m venv env
+env\Scripts\activate
 
-**_ to make HTTP requests to specified URI using GET, POST, PUT, PATCH, or HEAD _**
-pip install requests
+*** install below libraries ***
+pip install requests beautifulsoup4 selenium pandas openpyxl seaborn numpy matplotlib scipy
 
-**_ 1, converts incoming records to Unicode and outgoing forms to UTF-8 _**
-**_ 2, Beautiful Soup sits on top of famous Python parsers like LXML and HTML _**
-pip install beautifulsoup4
+## if there is no structured and unstructured data files do below first
+    *** 1. run scrapper.py ***
+    command: python scrapper.py
 
-**_ control web browsers programmatically, enabling tasks such as web scraping, automated testing, and web application interaction. Selenium supports various web browsers, _** **_ including Chrome, Firefox, Safari, and Edge, making it a versatile tool for browser automation._**
+    *** 2. run data_cleaning.py ***
+    command: python data_cleaning.py
 
-pip install -U selenium
+*** If there is already structured and unstructured data files, work on below files ***
+analysys_failed_start-ups.ipynb
+analysys_successfull_start-ups.ipynb
 
-**_ pandas library _**
-pip install pandas
 
-**_ pip install openpyxl _**
-pip install openpyxl
-
- <!-- 
-    while scrapping for each start_up 
-  -->
